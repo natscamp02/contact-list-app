@@ -11,7 +11,9 @@ exports.login = catchAsync(async (req, res, next) => {
 
 	if (!(await user.isCorrectPassword(data.password))) throw new AppError('Password is incorrect', 400);
 
-	const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+	const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+		expiresIn: '90d',
+	});
 
 	user.password = undefined;
 	res.status(200).json({
