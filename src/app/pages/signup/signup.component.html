@@ -1,1 +1,28 @@
-<p>signup works!</p>
+<div class="container py-12">
+    <h1 class="text-3xl mb-8">Create An Your Account</h1>
+
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-control mb-2 max-w-sm">
+            <label class="label" for="username">Username</label>
+            <input class="input input-bordered" type="text" name="username" id="username" [(ngModel)]="data.username"
+                required>
+        </div>
+        <div class="form-control mb-2 max-w-sm">
+            <label class="label" for="password">Password</label>
+            <input class="input input-bordered" type="password" name="password" id="password"
+                [(ngModel)]="data.password" required>
+        </div>
+        <div class="form-control mb-2 max-w-sm">
+            <label class="label" for="role">Role</label>
+            <select class="select select-bordered" name="role" id="role" [(ngModel)]="data.role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Sign Up</button>
+        <p>
+            <a routerLink="/login">Login instead</a>
+        </p>
+    </form>
+</div>

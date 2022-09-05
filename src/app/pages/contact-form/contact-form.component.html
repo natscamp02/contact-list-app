@@ -1,1 +1,31 @@
-<p>contact-form works!</p>
+<div class="container py-12">
+    <h1 class="text-3xl mb-8">Create a contact</h1>
+
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-control mb-2 max-w-md">
+            <label for="first_name" class="label">First Name</label>
+            <input class="input input-bordered" type="text" name="first_name" id="first_name"
+                [(ngModel)]="data.first_name" required>
+        </div>
+
+        <div class="form-control mb-2 max-w-md">
+            <label for="last_name" class="label">Last Name</label>
+            <input class="input input-bordered" type="text" name="last_name" id="last_name" [(ngModel)]="data.last_name"
+                required>
+        </div>
+
+        <div class="form-control mb-2 max-w-md">
+            <label for="email" class="label">Email</label>
+            <input class="input input-bordered" type="email" name="email" id="email" [(ngModel)]="data.email" required>
+        </div>
+
+        <div class="form-control mb-2 max-w-md">
+            <label for="contact_num" class="label">Contact Number</label>
+            <input class="input input-bordered" type="number" name="contact_num" id="contact_num"
+                [(ngModel)]="data.contact_num" required>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">{{action === 'add'? 'Add':"Update"}}
+            Contact</button>
+    </form>
+</div>
