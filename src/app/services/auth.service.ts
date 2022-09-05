@@ -14,8 +14,6 @@ export class AuthService {
     isLoggedIn: boolean = false;
     authToken?: string;
 
-    user: any;
-
     constructor(private http: HttpClient, private router: Router) {
         this.autoLogin();
     }
@@ -25,7 +23,6 @@ export class AuthService {
             if (res.status === 'success') {
                 this.isLoggedIn = true;
                 this.authToken = res.data!['token'];
-                this.saveUser(res.data!['user'])
                 this.saveToken(this.authToken);
             }
         }));
@@ -64,8 +61,5 @@ export class AuthService {
     private saveToken(token: string): void {
         localStorage.setItem('authToken', token);
 
-    }
-    private saveUser(user: User): void {
-        localStorage.setItem('userInfo', JSON.stringify(user));
     }
 }
