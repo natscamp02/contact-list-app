@@ -22,6 +22,10 @@ export class ContactsService {
         return of(res.error);
     }
 
+    uploadThumbnail(id: string, formData: FormData): Observable<APIResponse> {
+        return this.http.post<APIResponse>(this.API_URL + id + '/thumbnail', formData);
+    }
+
     getAllContacts(): Observable<APIResponse<Contact[]>> {
         return this.http.get<APIResponse<Contact[]>>(this.API_URL).pipe(catchError(this._handleHTTPError));
     }
