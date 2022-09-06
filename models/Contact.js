@@ -20,6 +20,11 @@ const ContactSchema = mongoose.Schema({
 		required: [true, 'Please enter a contact number'],
 	},
 
+	thumbnail: {
+		type: String,
+		default: 'default.png',
+	},
+
 	owner: {
 		type: mongoose.SchemaTypes.ObjectId,
 		ref: 'User',

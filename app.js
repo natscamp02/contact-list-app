@@ -1,3 +1,5 @@
+const path = require('path');
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -16,6 +18,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'));
+
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1/contacts', contactRouter);
 app.use('/api/v1/users', userRouter);
