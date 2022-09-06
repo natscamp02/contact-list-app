@@ -19,7 +19,7 @@
             <input class="input input-bordered" type="email" name="email" id="email" [(ngModel)]="data.email" required>
         </div>
 
-        <div class="form-control mb-2 max-w-md">
+        <div class="form-control mb-4 max-w-md">
             <label for="contact_num" class="label">Contact Number</label>
             <input class="input input-bordered" type="number" name="contact_num" id="contact_num"
                 [(ngModel)]="data.contact_num" required>
@@ -27,5 +27,6 @@
 
         <button class="btn btn-primary" type="submit" [disabled]="form.invalid">{{action === 'add'? 'Add':"Update"}}
             Contact</button>
+        <button class="ml-4 btn btn-outline btn-error" routerLink="/contacts">Cancel</button>
     </form>
 </div>
