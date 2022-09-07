@@ -13,14 +13,14 @@ export class AuthService {
 
     isLoggedIn: boolean = false;
     authToken?: string;
-    expiresAt?: Date;
+    expiresAt?: string;
 
     constructor(private http: HttpClient, private router: Router) {
         this.autoLogin();
         this.autoLogout();
     }
 
-    login(data: any): Observable<APIResponse<User & string & Date>> {
+    login(data: any): Observable<APIResponse<User & string>> {
         return this.http.post<APIResponse>(this.API_URL + '/login', data).pipe(tap((res) => {
             if (res.status === 'success') {
                 this.isLoggedIn = true;
@@ -33,7 +33,7 @@ export class AuthService {
         }));
     }
 
-    signup(data: any): Observable<APIResponse<User & string & Date>> {
+    signup(data: any): Observable<APIResponse<User & string>> {
         return this.http.post<APIResponse>(this.API_URL + '/signup', data).pipe(tap((res) => {
             if (res.status === 'success') {
                 this.isLoggedIn = true;
@@ -58,14 +58,14 @@ export class AuthService {
 
     private autoLogout(): void {
         let dateFromStorage = localStorage.getItem('expiresAt');
-        if (!this.expiresAt && !dateFromStorage) return;
+        if (!dateFromStorage) return;
 
-        this.expiresAt = new Date(this.expiresAt!) || new Date(dateFromStorage!);
+        const tokenExpires = new Date(dateFromStorage!);
 
         setTimeout(() => {
             this.logout();
             window.alert('Your session has expired');
-        }, this.expiresAt.getTime() - Date.now());
+        }, tokenExpires.getTime() - Date.now());
 
     }
 
@@ -78,9 +78,9 @@ export class AuthService {
         }
     }
 
-    private saveToken(token: string, expiresAt: Date): void {
+    private saveToken(token: string, expiresAt: string): void {
         localStorage.setItem('authToken', token);
-        localStorage.setItem('expiresAt', JSON.stringify(expiresAt));
+        localStorage.setItem('expiresAt', expiresAt);
 
     }
 }

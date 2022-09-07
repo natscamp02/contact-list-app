@@ -8,6 +8,7 @@ export class Contact {
         public last_name?: string,
         public email?: string,
         public contact_num?: number,
+        public thumbnail?: string,
         public owner?: string | User,
     ) { }
 

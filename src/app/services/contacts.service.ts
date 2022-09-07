@@ -34,12 +34,18 @@ export class ContactsService {
         return this.http.get<APIResponse<Contact>>(this.API_URL + id).pipe(catchError(this._handleHTTPError));
     }
 
-    createContact(contact: Contact): Observable<APIResponse<Contact>> {
-        return this.http.post<APIResponse<Contact>>(this.API_URL, contact).pipe(catchError(this._handleHTTPError));
+    // createContact(contact: Contact): Observable<APIResponse<Contact>> {
+    //     return this.http.post<APIResponse<Contact>>(this.API_URL, contact).pipe(catchError(this._handleHTTPError));
+    // }
+    createContact(formData: FormData): Observable<APIResponse<Contact>> {
+        return this.http.post<APIResponse<Contact>>(this.API_URL, formData).pipe(catchError(this._handleHTTPError));
     }
 
-    updateContact(contact: Contact): Observable<APIResponse<Contact>> {
-        return this.http.put<APIResponse<Contact>>(this.API_URL + contact._id, contact).pipe(catchError(this._handleHTTPError));
+    // updateContact(id: string, contact: Contact): Observable<APIResponse<Contact>> {
+    //     return this.http.put<APIResponse<Contact>>(this.API_URL + id, contact).pipe(catchError(this._handleHTTPError));
+    // }
+    updateContact(id: string, formData: FormData): Observable<APIResponse<Contact>> {
+        return this.http.put<APIResponse<Contact>>(this.API_URL + id, formData).pipe(catchError(this._handleHTTPError));
     }
 
     deleteContact(contact: Contact): Observable<APIResponse> {

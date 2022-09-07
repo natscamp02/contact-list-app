@@ -2,6 +2,12 @@
     <h1 class="text-3xl mb-8">Create a contact</h1>
 
     <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-control">
+            <label class="label" for="thumbnail">Thumbnail</label>
+            <input type="file" name="thumbnail" id="thumbnail" accept="image/*" (change)="onFileSelected($event)"
+                #fileInput>
+        </div>
+
         <div class="form-control mb-2 max-w-md">
             <label for="first_name" class="label">First Name</label>
             <input class="input input-bordered" type="text" name="first_name" id="first_name"
