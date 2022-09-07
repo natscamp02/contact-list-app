@@ -11,12 +11,14 @@ const multerStorage = multer.diskStorage({
 	},
 	filename: (req, file, cb) => {
 		const extName = file.mimetype.split('/')[1];
-		const filename = `${file.fieldname}-${req.params.id}.${extName}`;
+		const filename = `${file.fieldname}-${Date.now()}.${extName}`;
 
 		cb(null, filename);
 	},
 });
 const multerFilter = (req, file, cb) => {
+	console.log(file);
+
 	if (file.mimetype.startsWith('image')) {
 		cb(null, true);
 	} else {
@@ -36,11 +38,14 @@ router.use(restrictTo(['user']));
 
 router.route('/:id/thumbnail').post(upload.single('thumbnail'), contactController.handleImageUpload);
 
-router.route('/').get(contactController.getAllContacts).post(contactController.createContact);
+router
+	.route('/')
+	.get(contactController.getAllContacts)
+	.post(upload.single('thumbnail'), contactController.createContact);
 router
 	.route('/:id')
 	.get(contactController.getContactById)
-	.put(contactController.updateContactById)
+	.put(upload.single('thumbnail'), contactController.updateContactById)
 	.delete(contactController.deleteContactById);
 
 module.exports = router;

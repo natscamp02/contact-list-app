@@ -37,6 +37,12 @@ exports.createContact = catchAsync(async (req, res) => {
 	const data = req.body;
 	data.owner = req.user._id;
 
+	console.log(data);
+
+	if (req.file) {
+		data.thumbnail = req.file.filename;
+	}
+
 	const contact = await Contact.create(data);
 
 	res.status(201).json({
@@ -48,6 +54,11 @@ exports.createContact = catchAsync(async (req, res) => {
 });
 
 exports.updateContactById = catchAsync(async (req, res) => {
+	// Update contact with thumbnail if present
+	if (req.file) {
+		req.body.thumbnail = req.file.filename;
+	}
+
 	const contact = await Contact.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
 	if (!contact) throw new AppError('No contact found', 404);

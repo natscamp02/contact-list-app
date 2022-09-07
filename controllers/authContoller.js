@@ -11,8 +11,9 @@ exports.login = catchAsync(async (req, res, next) => {
 
 	if (!(await user.isCorrectPassword(data.password))) throw new AppError('Password is incorrect', 400);
 
+	const tokenExpires = 5 * 60;
 	const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-		expiresIn: '90d',
+		expiresIn: tokenExpires,
 	});
 
 	user.password = undefined;
@@ -20,6 +21,7 @@ exports.login = catchAsync(async (req, res, next) => {
 		status: 'success',
 		data: {
 			token: token,
+			tokenExpires: new Date(Date.now() + tokenExpires * 1000),
 			user: user,
 		},
 	});
