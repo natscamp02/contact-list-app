@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.handleImageUpload = catchAsync(async (req, res) => {
-	const contact = await Contact.findByIdAndUpdate(req.params.id, { thumbnail: req.file.filename });
+	const contact = await Contact.findByIdAndUpdate(req.params.id, { thumbnail: req.file.filename }, { new: true });
 
 	res.status(200).json({ status: 'success', data: { contact } });
 });

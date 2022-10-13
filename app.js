@@ -1,5 +1,8 @@
+require('dotenv').config({ path: './config.env' });
+
 const path = require('path');
 
+const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -29,4 +32,13 @@ app.get('/', (_, res) => res.sendStatus(200));
 app.all('*', (_req, _res, next) => next(new AppError('Url not found', 404)));
 app.use(globalErrorHandler);
 
-module.exports = app;
+mongoose
+	.connect(process.env.DB_URL.replace('<password>', process.env.DB_PASSWORD))
+	.then(() => console.log('Connected to database...'))
+	.catch((err) => {
+		console.err(err);
+		process.exit(1);
+	});
+
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`Listen on port ${port}...`));

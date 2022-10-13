@@ -2,9 +2,9 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const contactController = require('../controllers/contactController');
-const { protect, restrictTo } = require('../controllers/authContoller');
+const { protect, restrictTo } = require('../controllers/authController');
 
-// Uplading files with Multer
+// Uploading files with Multer
 const multerStorage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		cb(null, path.join(__dirname, '../public/photos'));
